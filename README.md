@@ -3,10 +3,14 @@
 It demonstrates a CDK Construct Library that includes a construct (`AwsMkosiBuilder`)
 which contains the following
 - An AWS CodePipeline
-- With a Github source interface to link to github repos
-- A codeBuild job that by default can run a build against my customer mkosi defined distribution [aws-ready-edge-os](https://github.com/Vasu77df/aws-ready-edge-os).
-- You can bring your own Codbuild BuildSpec as well to define your own build. Below is the stage example you can copy
-
+- With a Github source interface to link to github repos.
+   - Create an oauth token in your github repo.
+   - Then upload the token to the AWS Secrets manager like so to use in your construct using aws-cli
+```
+aws secretsmanager create-secret --name github-oauth-token --secret-string "your-token"
+```
+- A codeBuild job that by default can run a build against my custom mkosi defined distribution [aws-ready-edge-os](https://github.com/Vasu77df/aws-ready-edge-os).
+- You can bring your own Codbuild BuildSpec as well to define your own build. Below is a spec example you can copy:
 ```typescript
 codebuild.BuildSpec.fromObject({
         version: '0.2',
@@ -63,4 +67,9 @@ export interface AwsMkosiBuilderProps {
 * `npm run watch`   watch for changes and compile
 * `npm run test`    perform the jest unit tests
 
+## Example
+
 Use this in your CDK project to define your own build.
+
+Here's a reference example you can copy if you desire.
+- https://github.com/Vasu77df/aws-hosted-mkosi-build-example
